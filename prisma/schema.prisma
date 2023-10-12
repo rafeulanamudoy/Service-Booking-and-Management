@@ -18,17 +18,87 @@ model User  {
   role                  UserRole
   contactNo              String
   address String
+  bookingList BookModel[]
+  reviews ReviewAndRating[]
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
 
+   
+  @@map("users")
+}
+
+
+model  Service {
+
+  id String    @id @default(uuid())
+  name String
+  image String
+  description String
+  serviceStatus ServiceStatus
+  price Float
+  bookingList BookModel[]
+
+  reviews ReviewAndRating[]
+  
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+}
+
+model ReviewAndRating{
+
+id String @id @default(uuid())
+review String
+rating Int
+
+userReveiw User @relation( fields: [userId],references: [id])
+userId String  
+
+
+serviceReview Service @relation(fields: [serviceId],references: [id])
+serviceId String
+  
+}
+model BookModel{
+
+id String    @id @default(uuid())
+ 
+  
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
 
 
-  @@map("users")
-}
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  
+  serviceType Service @relation( fields: [serviceId],references: [id])
+  serviceId String
+  dimention String
+  startDate DateTime
+   timeSlot String
+   colorScheme String?
 
+  location String
+
+  bookingStatus BookingStatus @default(pending)
+
+
+
+}
 enum UserRole {
   superAdmin
   admin
   customer
 
+}
+
+enum BookingStatus {
+pending
+shipped
+delivered
+}
+enum ServiceStatus {
+  available
+   booked 
+   unavailable
 }
