@@ -12,8 +12,9 @@ import prisma from '../../../shared/prisma';
 import { ILoginUser, ILoginUserResponse } from './auth.interface';
 
 const createUser = async (user: User): Promise<User | null> => {
-  // console.log(user)
+  console.log(user, 'im from auth service');
   const modifyUser = await hashPassword(user);
+
   const result = await prisma.user.create({
     data: modifyUser,
   });
@@ -57,6 +58,8 @@ const loginUser = async (
   return {
     token,
     refreshToken,
+    email,
+    role,
   };
 };
 const refreshToken = async (token: string) => {

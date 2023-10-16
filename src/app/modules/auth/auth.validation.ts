@@ -3,9 +3,6 @@ import { z } from 'zod';
 
 const signUpZodSchema = z.object({
   body: z.object({
-    name: z.string({
-      required_error: 'name is Required',
-    }),
     email: z
       .string({
         required_error: 'Email is Required',
@@ -14,16 +11,10 @@ const signUpZodSchema = z.object({
     password: z.string({
       required_error: 'Password is Required',
     }),
+    secret_key: z.string({}).optional(),
     role: z
       .enum([...Object.values(UserRole)] as [string, ...string[]], {})
       .optional(),
-    contactNo: z.string({
-      required_error: 'contactNo is Required',
-    }),
-
-    address: z.string({
-      required_error: 'address is Required',
-    }),
   }),
 });
 const loginZodSchema = z.object({

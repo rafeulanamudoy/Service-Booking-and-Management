@@ -1,6 +1,7 @@
 import express from 'express';
 import { AuthController } from './auth.controller';
 
+import roleBaseAuth from '../../middlewares/roleBaseAuth';
 import validateRequest from '../../middlewares/validateRequest';
 import { AuthValidation } from './auth.validation';
 
@@ -11,6 +12,7 @@ export const AuthRoute = router;
 router.post(
   '/signUp',
   validateRequest(AuthValidation.signUpZodSchema),
+  roleBaseAuth(),
   AuthController.createUser
 );
 

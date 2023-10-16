@@ -8,8 +8,9 @@ import { IRefreshTokenResponse } from './auth.interface';
 import { AuthService } from './auth.service';
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
-  const user = req.body;
-  console.log(user);
+  // eslint-disable-next-line no-unused-vars
+  const { superRoleKey, ...user } = req.body;
+
   const result = await AuthService.createUser(user);
   // eslint-disable-next-line no-unused-vars
   if (result !== null) {

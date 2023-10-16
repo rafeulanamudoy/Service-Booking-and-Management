@@ -11,6 +11,8 @@ export type ILoginUser = {
 export type ILoginUserResponse = {
   refreshToken: string;
   token: string;
+  email: string;
+  role: string;
 };
 export type IRefreshTokenResponse = {
   accessToken: string;
