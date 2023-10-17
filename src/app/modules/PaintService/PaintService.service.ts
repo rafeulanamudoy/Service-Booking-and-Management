@@ -47,6 +47,14 @@ const getService = async (
               equals: numericValue,
             },
           };
+        } else if (field === 'category') {
+          return {
+            category: {
+              title: {
+                equals: value,
+              },
+            },
+          };
         } else if (field === 'minPrice') {
           const parseMinPrice = parseInt(value as string);
 
@@ -80,6 +88,11 @@ const getService = async (
     where: whereConditons,
     include: {
       reviews: true,
+      category: {
+        select: {
+          title: true,
+        },
+      },
     },
     skip,
     take: size,

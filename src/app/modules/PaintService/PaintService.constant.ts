@@ -4,6 +4,9 @@ export const ServiceFilterableField = [
   'price',
   'search',
   'name',
+  'serviceStatus',
+  'categoryId',
+  'category',
 ];
 
-export const ServiceSearchableFields = ['name'];
+export const ServiceSearchableFields = ['name', 'description'];

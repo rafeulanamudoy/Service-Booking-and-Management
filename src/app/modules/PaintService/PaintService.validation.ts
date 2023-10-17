@@ -6,6 +6,9 @@ const createService = z.object({
     name: z.string({
       required_error: 'Service name is Required',
     }),
+    categoryId: z.string({
+      required_error: 'CategoryId  is Required',
+    }),
     image: z
       .string({
         required_error: 'Image  is Required',
@@ -14,7 +17,6 @@ const createService = z.object({
     description: z.string({
       required_error: 'description is Required',
     }),
-
     price: z.number({
       required_error: 'price is Required',
     }),

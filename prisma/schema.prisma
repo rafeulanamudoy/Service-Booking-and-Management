@@ -49,7 +49,7 @@ model PaintingCategory{
 
     id String @id @default(uuid())
   title String
-  category Service[]
+  service Service[]
 } 
 model  Service {
 
@@ -60,7 +60,7 @@ model  Service {
   serviceStatus ServiceStatus 
   price Float
   bookingList BookingModel[]
-
+  
   reviews ReviewAndRating[]
   
   category PaintingCategory @relation(fields: [categoryId],references: [id])
@@ -126,7 +126,7 @@ delivered
 }
 enum ServiceStatus {
   available
-   booked 
+   upcoming 
    unavailable
 }
 
