@@ -27,3 +27,9 @@ router.post(
   validateRequest(AuthValidation.refreshTokenZodSchema),
   AuthController.refreshToken
 );
+
+router.get(
+  '/email/:email',
+
+  AuthController.getUserbyEmail
+);

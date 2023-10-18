@@ -100,9 +100,19 @@ const getAllUsers = async (): Promise<User[]> => {
   const result = await prisma.user.findMany({});
   return result;
 };
+
+const getUserbyEmail = async (email: string): Promise<User | null> => {
+  const result = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+  return result;
+};
 export const AuthService = {
   createUser,
   loginUser,
   refreshToken,
   getAllUsers,
+  getUserbyEmail,
 };

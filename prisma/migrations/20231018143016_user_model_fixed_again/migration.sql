@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "designation" SET DEFAULT '',
+ALTER COLUMN "address" SET DATA TYPE TEXT;

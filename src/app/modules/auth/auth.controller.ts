@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 const createUser = catchAsync(async (req: Request, res: Response) => {
   // eslint-disable-next-line no-unused-vars
   const { superRoleKey, ...user } = req.body;
+  console.log(user);
 
   const result = await AuthService.createUser(user);
   // eslint-disable-next-line no-unused-vars
@@ -83,9 +84,24 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
     data: data,
   });
 });
+
+const getUserbyEmail = catchAsync(async (req: Request, res: Response) => {
+  const email = req.params.email;
+
+  const data = await AuthService.getUserbyEmail(email);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+
+    message: 'User get  successfully',
+    data: data,
+  });
+});
 export const AuthController = {
   createUser,
   loginUser,
   refreshToken,
   getAllUsers,
+  getUserbyEmail,
 };

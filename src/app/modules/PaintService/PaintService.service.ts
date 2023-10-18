@@ -19,13 +19,9 @@ const getService = async (
   const { page, size, skip } = paginationHelpers.calculatePagination(options);
   const { search, ...filterData } = filters;
 
-  console.log(options, 'chekc options');
-  console.log(filters, 'filters data');
-  //console.log(filterData, 'filterData');
+  //console.log(options, 'chekc options');
+  //console.log(filters, 'filters data');
 
-  //   console.log(search, filterData, 'filters');
-  // console.log(page, limit, skip, 'pagination');
-  //console.log(search);
   const andConditons = [];
   if (search) {
     andConditons.push({
@@ -51,7 +47,7 @@ const getService = async (
           return {
             category: {
               title: {
-                equals: value,
+                equals: value as string,
               },
             },
           };
@@ -60,7 +56,7 @@ const getService = async (
 
           return {
             price: {
-              lte: parseMinPrice,
+              gte: parseMinPrice,
             },
           };
         } else if (field === 'maxPrice') {
@@ -68,10 +64,11 @@ const getService = async (
 
           return {
             price: {
-              gte: parseMaxPrice,
+              lte: parseMaxPrice,
             },
           };
         }
+
         return {
           [field]: {
             equals: value,
@@ -80,6 +77,8 @@ const getService = async (
       }),
     });
   }
+
+  console.log(andConditons, 'check andconditon');
   // console.log(Object.keys(filterData), 'using key');
   //console.log(Object.entries(filterData), 'using entries');
   const whereConditons: Prisma.ServiceWhereInput =

@@ -5,7 +5,7 @@ CREATE TYPE "UserRole" AS ENUM ('superAdmin', 'admin', 'customer');
 CREATE TYPE "BookingStatus" AS ENUM ('pending', 'shipped', 'delivered');
 
 -- CreateEnum
-CREATE TYPE "ServiceStatus" AS ENUM ('available', 'booked', 'unavailable');
+CREATE TYPE "ServiceStatus" AS ENUM ('available', 'upcoming', 'unavailable');
 
 -- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('male', 'female');
@@ -16,6 +16,11 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" "UserRole" NOT NULL DEFAULT 'customer',
+    "contactNumber" TEXT NOT NULL,
+    "designation" TEXT NOT NULL,
+    "dateOfBirth" TIMESTAMP(3) NOT NULL,
+    "Gender" "Gender" NOT NULL,
+    "address" JSONB NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -23,23 +28,11 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Profile" (
+CREATE TABLE "PaintingCategory" (
     "id" TEXT NOT NULL,
-    "firstName" TEXT NOT NULL,
-    "lastName" TEXT NOT NULL,
-    "profileImg" TEXT,
-    "contactNumber" TEXT NOT NULL,
-    "street" TEXT NOT NULL,
-    "city" TEXT NOT NULL,
-    "dateOfBirth" TIMESTAMP(3) NOT NULL,
-    "Gender" "Gender" NOT NULL,
-    "district" TEXT NOT NULL,
-    "divistion" TEXT NOT NULL,
-    "postalCode" TEXT NOT NULL,
-    "desigNation" TEXT,
-    "userId" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
 
-    CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "PaintingCategory_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -50,6 +43,7 @@ CREATE TABLE "Service" (
     "description" TEXT NOT NULL,
     "serviceStatus" "ServiceStatus" NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
+    "categoryId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -61,7 +55,7 @@ CREATE TABLE "ReviewAndRating" (
     "id" TEXT NOT NULL,
     "review" TEXT NOT NULL,
     "rating" INTEGER NOT NULL,
-    "profileId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "serviceId" TEXT NOT NULL,
 
     CONSTRAINT "ReviewAndRating_pkey" PRIMARY KEY ("id")
@@ -72,7 +66,7 @@ CREATE TABLE "BookingModel" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "profileId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "serviceId" TEXT NOT NULL,
     "dimention" TEXT NOT NULL,
     "startDate" TIMESTAMP(3) NOT NULL,
@@ -87,20 +81,17 @@ CREATE TABLE "BookingModel" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Profile_userId_key" ON "Profile"("userId");
+-- AddForeignKey
+ALTER TABLE "Service" ADD CONSTRAINT "Service_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "PaintingCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ReviewAndRating" ADD CONSTRAINT "ReviewAndRating_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "Profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ReviewAndRating" ADD CONSTRAINT "ReviewAndRating_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ReviewAndRating" ADD CONSTRAINT "ReviewAndRating_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "BookingModel" ADD CONSTRAINT "BookingModel_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "Profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "BookingModel" ADD CONSTRAINT "BookingModel_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "BookingModel" ADD CONSTRAINT "BookingModel_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

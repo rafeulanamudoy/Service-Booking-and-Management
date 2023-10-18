@@ -11,6 +11,22 @@ const signUpZodSchema = z.object({
     password: z.string({
       required_error: 'Password is Required',
     }),
+    firstName: z.string({
+      required_error: 'First Name is Required',
+    }),
+    lastName: z.string({
+      required_error: 'Last  Name is Required',
+    }),
+    contactNumber: z.string({
+      required_error: 'Contact Number  is Required',
+    }),
+
+    gender: z.string({
+      required_error: 'Gender is Required',
+    }),
+    address: z.string({
+      required_error: 'Address is Required',
+    }),
     secret_key: z.string({}).optional(),
     role: z
       .enum([...Object.values(UserRole)] as [string, ...string[]], {})
