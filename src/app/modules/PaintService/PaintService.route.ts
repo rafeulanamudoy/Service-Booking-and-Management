@@ -7,7 +7,11 @@ import { ServiceValidation } from './PaintService.validation';
 const router = express.Router();
 
 export const ServiceRoute = router;
+router.patch(
+  '/:id',
 
+  PaintServiceContrller.updateService
+);
 router.post(
   '/',
   validateRequest(ServiceValidation.createService),

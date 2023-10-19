@@ -13,6 +13,11 @@ router.patch(
 
   AuthController.updateUser
 );
+router.delete(
+  '/:id',
+
+  AuthController.deleteUser
+);
 
 router.post(
   '/signUp',
@@ -20,6 +25,7 @@ router.post(
   roleBaseAuth(),
   AuthController.createUser
 );
+router.get('/users', AuthController.getAllUsers);
 
 router.post(
   '/signin',

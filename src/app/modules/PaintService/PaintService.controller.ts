@@ -39,7 +39,23 @@ const getService = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
+
+const updateService = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const service = req.body;
+  console.log(service);
+  const result = await PaintService.updateService(id, service);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+
+    message: 'update  service successfully',
+    data: result,
+  });
+});
 export const PaintServiceContrller = {
   createService,
   getService,
+  updateService,
 };

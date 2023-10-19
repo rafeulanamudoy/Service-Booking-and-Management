@@ -101,7 +101,7 @@ const getService = async (
             [options.sortBy]: options.sortOrder,
           }
         : {
-            price: 'desc',
+            createdAt: 'desc',
           },
   });
 
@@ -117,7 +117,22 @@ const getService = async (
     data: result,
   };
 };
+
+const updateService = async (
+  id: string,
+  service: Service
+): Promise<Service | null> => {
+  const result = await prisma.service.update({
+    where: {
+      id: id,
+    },
+    data: service,
+  });
+  return result;
+};
+
 export const PaintService = {
   createService,
   getService,
+  updateService,
 };

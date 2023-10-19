@@ -97,7 +97,11 @@ const refreshToken = async (token: string) => {
 };
 
 const getAllUsers = async (): Promise<User[]> => {
-  const result = await prisma.user.findMany({});
+  const result = await prisma.user.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
   return result;
 };
 
@@ -125,6 +129,15 @@ const updateUser = async (
   });
   return result;
 };
+const deleteUser = async (id: string): Promise<User | null> => {
+  const result = await prisma.user.delete({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
+
 export const AuthService = {
   createUser,
   loginUser,
@@ -132,4 +145,5 @@ export const AuthService = {
   getAllUsers,
   getUserbyEmail,
   updateUser,
+  deleteUser,
 };
