@@ -25,15 +25,14 @@ const getAllBooking = async (): Promise<BookingModel[] | null> => {
   const result = await prisma.bookingModel.findMany({
     include: {
       Bookings: true,
+      serviceType: true,
     },
   });
 
   return result;
 };
 
-const getBookingByEmail = async (
-  id: string
-): Promise<BookingModel[] | null> => {
+const getBookingById = async (id: string): Promise<BookingModel[] | null> => {
   const result = await prisma.bookingModel.findMany({
     where: {
       userId: id,
@@ -45,9 +44,35 @@ const getBookingByEmail = async (
 
   return result;
 };
+const deleteBookingById = async (id: string): Promise<BookingModel | null> => {
+  const result = await prisma.bookingModel.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  return result;
+};
+const updateBooking = async (
+  id: string,
+  data: Partial<BookingModel>
+): Promise<BookingModel | null> => {
+  // eslint-disable-next-line no-unused-vars
+  const { dimention, ...others } = data;
+
+  const updateBooking = await prisma.bookingModel.update({
+    where: {
+      id: id,
+    },
+    data: others,
+  });
+  return updateBooking;
+};
 
 export const BookingService = {
   createBooking,
   getAllBooking,
-  getBookingByEmail,
+  getBookingById,
+  deleteBookingById,
+  updateBooking,
 };

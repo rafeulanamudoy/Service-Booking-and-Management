@@ -29,10 +29,10 @@ const getAllBooking = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-const getBookingByEmail = catchAsync(async (req: Request, res: Response) => {
+const getbookingById = catchAsync(async (req: Request, res: Response) => {
   //console.log(booking, 'controller');
   const id = req.params.id;
-  const result = await BookingService.getBookingByEmail(id);
+  const result = await BookingService.getBookingById(id);
 
   sendResponse(res, {
     success: true,
@@ -42,8 +42,37 @@ const getBookingByEmail = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const deleteBookingById = catchAsync(async (req: Request, res: Response) => {
+  //console.log(booking, 'controller');
+  const id = req.params.id;
+  const result = await BookingService.deleteBookingById(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+
+    message: 'booking deleted    successfully',
+    data: result,
+  });
+});
+const updateBooking = catchAsync(async (req: Request, res: Response) => {
+  //console.log(booking, 'controller');
+  const id = req.params.id;
+  const data = req.body;
+  const result = await BookingService.updateBooking(id, data);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+
+    message: 'Update  successfully',
+    data: result,
+  });
+});
 export const BookingController = {
   createBooking,
   getAllBooking,
-  getBookingByEmail,
+  getbookingById,
+  deleteBookingById,
+  updateBooking,
 };

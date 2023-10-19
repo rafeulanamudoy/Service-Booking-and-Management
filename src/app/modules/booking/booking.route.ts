@@ -9,7 +9,17 @@ export const BookingRoute = router;
 router.get(
   '/book/:id',
 
-  BookingController.getBookingByEmail
+  BookingController.getbookingById
+);
+router.delete(
+  '/book/:id',
+
+  BookingController.deleteBookingById
+);
+router.patch(
+  '/book/:id',
+
+  BookingController.updateBooking
 );
 
 router.post(
