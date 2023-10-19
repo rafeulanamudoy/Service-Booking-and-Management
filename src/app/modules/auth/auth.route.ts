@@ -8,6 +8,11 @@ import { AuthValidation } from './auth.validation';
 const router = express.Router();
 
 export const AuthRoute = router;
+router.patch(
+  '/:id',
+
+  AuthController.updateUser
+);
 
 router.post(
   '/signUp',

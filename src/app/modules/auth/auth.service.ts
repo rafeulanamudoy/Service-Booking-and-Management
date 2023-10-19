@@ -106,6 +106,22 @@ const getUserbyEmail = async (email: string): Promise<User | null> => {
     where: {
       email: email,
     },
+    include: {
+      bookingList: true,
+    },
+  });
+  return result;
+};
+
+const updateUser = async (
+  id: string,
+  data: Partial<User>
+): Promise<User | null> => {
+  const result = await prisma.user.update({
+    where: {
+      id: id,
+    },
+    data,
   });
   return result;
 };
@@ -115,4 +131,5 @@ export const AuthService = {
   refreshToken,
   getAllUsers,
   getUserbyEmail,
+  updateUser,
 };

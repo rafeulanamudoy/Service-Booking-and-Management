@@ -88,10 +88,11 @@ id String    @id @default(uuid())
   
   serviceType Service @relation( fields: [serviceId],references: [id])
   serviceId String
-  dimention String
+  dimention Json
   startDate DateTime
-   timeSlot String
+   timeSlot String 
    colorScheme String?
+   userRequerment String?
 
   location String
 

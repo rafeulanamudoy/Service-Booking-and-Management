@@ -8,7 +8,7 @@ import { IRefreshTokenResponse } from './auth.interface';
 import { AuthService } from './auth.service';
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const { superRoleKey, ...user } = req.body;
   console.log(user);
 
@@ -98,10 +98,25 @@ const getUserbyEmail = catchAsync(async (req: Request, res: Response) => {
     data: data,
   });
 });
+const updateUser = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const updateDoc = req.body;
+
+  const data = await AuthService.updateUser(id, updateDoc);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+
+    message: ' Updated  Profile successfully',
+    data: data,
+  });
+});
 export const AuthController = {
   createUser,
   loginUser,
   refreshToken,
   getAllUsers,
   getUserbyEmail,
+  updateUser,
 };
