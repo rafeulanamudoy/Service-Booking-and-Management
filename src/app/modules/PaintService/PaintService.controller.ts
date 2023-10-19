@@ -54,8 +54,22 @@ const updateService = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const deleteService = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  const result = await PaintService.deleteService(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+
+    message: 'Delete  service successfully',
+    data: result,
+  });
+});
 export const PaintServiceContrller = {
   createService,
   getService,
   updateService,
+  deleteService,
 };

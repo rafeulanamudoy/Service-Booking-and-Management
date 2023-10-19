@@ -130,9 +130,17 @@ const updateService = async (
   });
   return result;
 };
-
+const deleteService = async (id: string): Promise<Service | null> => {
+  const result = await prisma.service.delete({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
 export const PaintService = {
   createService,
   getService,
   updateService,
+  deleteService,
 };
