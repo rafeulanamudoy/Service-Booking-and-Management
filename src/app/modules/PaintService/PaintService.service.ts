@@ -138,9 +138,21 @@ const deleteService = async (id: string): Promise<Service | null> => {
   });
   return result;
 };
+const getServiceById = async (id: string): Promise<Service | null> => {
+  const result = await prisma.service.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      reviews: true,
+    },
+  });
+  return result;
+};
 export const PaintService = {
   createService,
   getService,
   updateService,
   deleteService,
+  getServiceById,
 };

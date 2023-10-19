@@ -12,6 +12,11 @@ router.patch(
 
   PaintServiceContrller.updateService
 );
+router.get(
+  '/:id',
+
+  PaintServiceContrller.getServiceById
+);
 router.delete(
   '/:id',
 
