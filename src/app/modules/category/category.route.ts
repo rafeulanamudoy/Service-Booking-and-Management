@@ -11,6 +11,8 @@ router.get(
 
   CategoryController.getCategoryById
 );
+router.delete('/:id', CategoryController.deleteCategoryById);
+
 router.post(
   '/',
   validateRequest(CategoryValidation.createCategory),

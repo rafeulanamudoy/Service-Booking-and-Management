@@ -11,5 +11,6 @@ const category_validation_1 = require("./category.validation");
 const router = express_1.default.Router();
 exports.CategoryRoute = router;
 router.get('/:id', category_controller_1.CategoryController.getCategoryById);
+router.delete('/:id', category_controller_1.CategoryController.deleteCategoryById);
 router.post('/', (0, validateRequest_1.default)(category_validation_1.CategoryValidation.createCategory), category_controller_1.CategoryController.createCategory);
 router.get('/', category_controller_1.CategoryController.getCategory);

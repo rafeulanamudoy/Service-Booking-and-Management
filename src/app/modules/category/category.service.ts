@@ -28,8 +28,21 @@ const getCategoryById = async (
 
   return result;
 };
+
+const deleteCategoryById = async (
+  id: string
+): Promise<PaintingCategory | null> => {
+  const result = await prisma.paintingCategory.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  return result;
+};
 export const CategoryService = {
   createCategory,
   getCategory,
   getCategoryById,
+  deleteCategoryById,
 };
