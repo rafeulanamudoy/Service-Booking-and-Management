@@ -10,14 +10,12 @@ import { AuthService } from './auth.service';
 const createUser = catchAsync(async (req: Request, res: Response) => {
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const { superRoleKey, ...user } = req.body;
-  console.log(user);
 
   const result = await AuthService.createUser(user);
   // eslint-disable-next-line no-unused-vars
   if (result !== null) {
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     const { password, ...others } = result;
-    console.log(result);
 
     sendResponse(res, {
       success: true,
@@ -41,9 +39,6 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   if (result !== null) {
     const { refreshToken, ...others } = result;
 
-    // console.log(token, 'from controller');
-    // console.log(result, 'to check result');
-
     res.cookie('refreshToken', refreshToken, cookieOptions);
 
     sendResponse(res, {
@@ -56,7 +51,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
 });
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
   const { refreshToken } = req.cookies;
-  console.log('my cookies', req.cookies);
+
   const result = await AuthService.refreshToken(refreshToken);
   const cookieOptions = {
     secure: config.env === 'production',

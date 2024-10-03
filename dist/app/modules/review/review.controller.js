@@ -19,7 +19,6 @@ const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const review_service_1 = require("./review.service");
 const createReview = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const review = req.body;
-    console.log(review);
     const result = yield review_service_1.ReviewService.createReview(review);
     (0, sendResponse_1.default)(res, {
         success: true,

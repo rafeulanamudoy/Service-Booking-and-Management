@@ -19,9 +19,6 @@ const getService = async (
   const { page, size, skip } = paginationHelpers.calculatePagination(options);
   const { search, ...filterData } = filters;
 
-  //console.log(options, 'chekc options');
-  //console.log(filters, 'filters data');
-
   const andConditons = [];
   if (search) {
     andConditons.push({
@@ -78,9 +75,6 @@ const getService = async (
     });
   }
 
-  console.log(andConditons, 'check andconditon');
-  // console.log(Object.keys(filterData), 'using key');
-  //console.log(Object.entries(filterData), 'using entries');
   const whereConditons: Prisma.ServiceWhereInput =
     andConditons.length > 0 ? { AND: andConditons } : {};
   const result = await prisma.service.findMany({

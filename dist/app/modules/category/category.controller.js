@@ -19,7 +19,6 @@ const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const category_service_1 = require("./category.service");
 const createCategory = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const category = req.body;
-    console.log(category);
     const result = yield category_service_1.CategoryService.createCategory(category);
     (0, sendResponse_1.default)(res, {
         success: true,

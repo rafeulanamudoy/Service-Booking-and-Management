@@ -6,7 +6,7 @@ import { BookingService } from './booking.service';
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
   const booking = req.body;
-  //console.log(booking, 'controller');
+
   const result = await BookingService.createBooking(booking);
 
   sendResponse(res, {
@@ -18,7 +18,6 @@ const createBooking = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const getAllBooking = catchAsync(async (req: Request, res: Response) => {
-  //console.log(booking, 'controller');
   const result = await BookingService.getAllBooking();
 
   sendResponse(res, {
@@ -30,7 +29,6 @@ const getAllBooking = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const getbookingById = catchAsync(async (req: Request, res: Response) => {
-  //console.log(booking, 'controller');
   const id = req.params.id;
   const result = await BookingService.getBookingById(id);
 
@@ -43,7 +41,6 @@ const getbookingById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const deleteBookingById = catchAsync(async (req: Request, res: Response) => {
-  //console.log(booking, 'controller');
   const id = req.params.id;
   const result = await BookingService.deleteBookingById(id);
 
@@ -56,7 +53,6 @@ const deleteBookingById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const updateBooking = catchAsync(async (req: Request, res: Response) => {
-  //console.log(booking, 'controller');
   const id = req.params.id;
   const data = req.body;
   const result = await BookingService.updateBooking(id, data);

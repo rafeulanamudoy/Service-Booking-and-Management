@@ -7,7 +7,6 @@ type Dimention = {
 const createBooking = async (
   service: BookingModel
 ): Promise<BookingModel | null> => {
-  console.log(service);
   const { dimention, ...others } = service;
   const { width, height } = dimention as Dimention;
   const result = await prisma.bookingModel.create({

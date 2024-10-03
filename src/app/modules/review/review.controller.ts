@@ -7,7 +7,7 @@ import { ReviewService } from './review.service';
 
 const createReview = catchAsync(async (req: Request, res: Response) => {
   const review = req.body;
-  console.log(review);
+
   const result = await ReviewService.createReview(review);
 
   sendResponse(res, {

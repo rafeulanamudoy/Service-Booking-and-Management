@@ -22,7 +22,6 @@ const pick_1 = __importDefault(require("../../../shared/pick"));
 const PaintService_constant_1 = require("./PaintService.constant");
 const createService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const service = req.body;
-    console.log(service);
     const result = yield PaintService_service_1.PaintService.createService(service);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -34,7 +33,6 @@ const createService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
 const getService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const paginationOptions = (0, pick_1.default)(req.query, pagination_1.paginationFields);
     const filters = (0, pick_1.default)(req.query, PaintService_constant_1.ServiceFilterableField);
-    console.log(filters, 'i am from controller to check filters', paginationOptions, 'i am from controller to check paginationOptions');
     const result = yield PaintService_service_1.PaintService.getService(filters, paginationOptions);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -47,7 +45,6 @@ const getService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 const updateService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const service = req.body;
-    console.log(service);
     const result = yield PaintService_service_1.PaintService.updateService(id, service);
     (0, sendResponse_1.default)(res, {
         success: true,

@@ -36,8 +36,6 @@ const createService = (service) => __awaiter(void 0, void 0, void 0, function* (
 const getService = (filters, options) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, size, skip } = paginationHelper_1.paginationHelpers.calculatePagination(options);
     const { search } = filters, filterData = __rest(filters, ["search"]);
-    //console.log(options, 'chekc options');
-    //console.log(filters, 'filters data');
     const andConditons = [];
     if (search) {
         andConditons.push({
@@ -93,9 +91,6 @@ const getService = (filters, options) => __awaiter(void 0, void 0, void 0, funct
             }),
         });
     }
-    console.log(andConditons, 'check andconditon');
-    // console.log(Object.keys(filterData), 'using key');
-    //console.log(Object.entries(filterData), 'using entries');
     const whereConditons = andConditons.length > 0 ? { AND: andConditons } : {};
     const result = yield prisma_1.default.service.findMany({
         where: whereConditons,

@@ -22,7 +22,6 @@ const passwordHash_1 = __importDefault(require("../../../helpers/passwordHash"))
 const passwordMatch_1 = __importDefault(require("../../../helpers/passwordMatch"));
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const createUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(user, 'im from auth service');
     const modifyUser = yield (0, passwordHash_1.default)(user);
     const result = yield prisma_1.default.user.create({
         data: modifyUser,
@@ -35,17 +34,11 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (!userExist) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User Doesn,t Exist');
     }
-    // console.log(userExist, 'from service file 30 number line');
     if (userExist.password &&
         !(yield (0, passwordMatch_1.default)(password, userExist.password))) {
-        // console.log(
-        //   await isPasswordMatched(password, userExist.password),
-        //   'to chekc password'
-        // );
         throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, 'Password is incorrect');
     }
     const { id: userId, role } = userExist;
-    console.log(userExist, 'from auth service tocheck user');
     const token = jwtHelpers_1.jwtHelpers.createToken({ userId, role }, config_1.default.jwt.secret, config_1.default.jwt.expires_in);
     const refreshToken = jwtHelpers_1.jwtHelpers.createToken({ userId, role }, config_1.default.jwt.refresh_secret, config_1.default.jwt.refresh_expires_in);
     return {
@@ -63,7 +56,6 @@ const refreshToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     catch (err) {
         throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'Invalid Refresh Token');
     }
-    console.log('decoded token ', verifiedToken);
     const { id } = verifiedToken;
     const isUserExist = yield prisma_1.default.user.findUnique({
         where: { id },

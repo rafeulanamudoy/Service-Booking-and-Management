@@ -32,13 +32,11 @@ const auth_service_1 = require("./auth.service");
 const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     const _a = req.body, { superRoleKey } = _a, user = __rest(_a, ["superRoleKey"]);
-    console.log(user);
     const result = yield auth_service_1.AuthService.createUser(user);
     // eslint-disable-next-line no-unused-vars
     if (result !== null) {
         // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
         const { password } = result, others = __rest(result, ["password"]);
-        console.log(result);
         (0, sendResponse_1.default)(res, {
             success: true,
             statusCode: http_status_1.default.OK,
@@ -57,8 +55,6 @@ const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
     };
     if (result !== null) {
         const { refreshToken } = result, others = __rest(result, ["refreshToken"]);
-        // console.log(token, 'from controller');
-        // console.log(result, 'to check result');
         res.cookie('refreshToken', refreshToken, cookieOptions);
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -70,7 +66,6 @@ const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
 }));
 const refreshToken = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { refreshToken } = req.cookies;
-    console.log('my cookies', req.cookies);
     const result = yield auth_service_1.AuthService.refreshToken(refreshToken);
     const cookieOptions = {
         secure: config_1.default.env === 'production',

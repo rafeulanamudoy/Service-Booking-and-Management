@@ -26,7 +26,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookingService = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const createBooking = (service) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(service);
     const { dimention } = service, others = __rest(service, ["dimention"]);
     const { width, height } = dimention;
     const result = yield prisma_1.default.bookingModel.create({

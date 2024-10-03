@@ -9,7 +9,7 @@ import pick from '../../../shared/pick';
 import { ServiceFilterableField } from './PaintService.constant';
 const createService = catchAsync(async (req: Request, res: Response) => {
   const service = req.body;
-  console.log(service);
+
   const result = await PaintService.createService(service);
 
   sendResponse(res, {
@@ -23,12 +23,7 @@ const createService = catchAsync(async (req: Request, res: Response) => {
 const getService = catchAsync(async (req: Request, res: Response) => {
   const paginationOptions = pick(req.query, paginationFields);
   const filters = pick(req.query, ServiceFilterableField);
-  console.log(
-    filters,
-    'i am from controller to check filters',
-    paginationOptions,
-    'i am from controller to check paginationOptions'
-  );
+
   const result = await PaintService.getService(filters, paginationOptions);
   sendResponse(res, {
     success: true,
@@ -43,7 +38,7 @@ const getService = catchAsync(async (req: Request, res: Response) => {
 const updateService = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const service = req.body;
-  console.log(service);
+
   const result = await PaintService.updateService(id, service);
 
   sendResponse(res, {

@@ -12,7 +12,6 @@ import prisma from '../../../shared/prisma';
 import { ILoginUser, ILoginUserResponse } from './auth.interface';
 
 const createUser = async (user: User): Promise<User | null> => {
-  console.log(user, 'im from auth service');
   const modifyUser = await hashPassword(user);
 
   const result = await prisma.user.create({
@@ -30,19 +29,14 @@ const loginUser = async (
   if (!userExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User Doesn,t Exist');
   }
-  // console.log(userExist, 'from service file 30 number line');
+
   if (
     userExist.password &&
     !(await isPasswordMatched(password, userExist.password))
   ) {
-    // console.log(
-    //   await isPasswordMatched(password, userExist.password),
-    //   'to chekc password'
-    // );
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is incorrect');
   }
   const { id: userId, role } = userExist;
-  console.log(userExist, 'from auth service tocheck user');
 
   const token = jwtHelpers.createToken(
     { userId, role },
@@ -72,7 +66,7 @@ const refreshToken = async (token: string) => {
   } catch (err) {
     throw new ApiError(httpStatus.FORBIDDEN, 'Invalid Refresh Token');
   }
-  console.log('decoded token ', verifiedToken);
+
   const { id } = verifiedToken;
 
   const isUserExist = await prisma.user.findUnique({

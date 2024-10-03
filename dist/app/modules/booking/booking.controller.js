@@ -19,7 +19,6 @@ const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const booking_service_1 = require("./booking.service");
 const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const booking = req.body;
-    //console.log(booking, 'controller');
     const result = yield booking_service_1.BookingService.createBooking(booking);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -29,7 +28,6 @@ const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
     });
 }));
 const getAllBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //console.log(booking, 'controller');
     const result = yield booking_service_1.BookingService.getAllBooking();
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -39,7 +37,6 @@ const getAllBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
     });
 }));
 const getbookingById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //console.log(booking, 'controller');
     const id = req.params.id;
     const result = yield booking_service_1.BookingService.getBookingById(id);
     (0, sendResponse_1.default)(res, {
@@ -50,7 +47,6 @@ const getbookingById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
     });
 }));
 const deleteBookingById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //console.log(booking, 'controller');
     const id = req.params.id;
     const result = yield booking_service_1.BookingService.deleteBookingById(id);
     (0, sendResponse_1.default)(res, {
@@ -61,7 +57,6 @@ const deleteBookingById = (0, catchAsync_1.default)((req, res) => __awaiter(void
     });
 }));
 const updateBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //console.log(booking, 'controller');
     const id = req.params.id;
     const data = req.body;
     const result = yield booking_service_1.BookingService.updateBooking(id, data);
